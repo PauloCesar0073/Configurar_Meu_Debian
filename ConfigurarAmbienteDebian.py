@@ -39,6 +39,195 @@ run_command("rm virtualbox_7.0.10.run")
 run_command("sudo apt install gcc make perl linux-headers-amd64 linux-headers-$(uname -r)")
 run_command("sudo /sbin/vboxconfig")
 
+
+print("-----------------------------------------------------------------------------")
+print("Configurando Terminal")
+print("-----------------------------------------------------------------------------")
+
+
+config = r"""# ~/.bashrc: executado pelo bash(1) para shells não-login.
+# Veja /usr/share/doc/bash/examples/startup-files (no pacote bash-doc) para exemplos.
+
+# Se não estiver sendo executado interativamente, não faça nada.
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# Não coloque linhas duplicadas ou linhas que comecem com espaço no histórico.
+# Consulte o bash(1) para mais opções.
+HISTCONTROL=ignoreboth
+
+# Anexar ao arquivo de histórico, não sobrescrevê-lo.
+shopt -s histappend
+
+# Defina o tamanho do histórico (quantidade de comandos armazenados).
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Verificar o tamanho da janela após cada comando e, se necessário,
+# atualizar os valores de LINES e COLUMNS.
+shopt -s checkwinsize
+
+# Se estiver definido, o padrão "**" usado em expansão de pathname corresponderá a todos os arquivos,
+# diretórios e subdiretórios.
+#shopt -s globstar
+
+# Facilitar a leitura de arquivos de entrada não-textuais, consulte lesspipe(1).
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Definir a variável debian_chroot se o arquivo /etc/debian_chroot existir e for legível.
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# Definir um prompt elegante (sem cor, a menos que seja suportado).
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# Descomente para ter um prompt colorido, se o terminal tiver essa capacidade; desligado por padrão para não distrair o usuário.
+# O foco em uma janela do terminal deve estar na saída dos comandos, não no prompt.
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # Temos suporte a cores; assumimos que é compatível com Ecma-48 (ISO/IEC-6429).
+        # (A falta desse suporte é extremamente rara, e tal caso tenderia a suportar setf em vez de setaf.)
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
+fi
+
+# O seguinte bloco é cercado por dois delimitadores.
+# Esses delimitadores não devem ser modificados. Obrigado.
+# INÍCIO DAS VARIÁVEIS DE CONFIGURAÇÃO DO KALI
+PROMPT_ALTERNATIVE=twoline
+NEWLINE_BEFORE_PROMPT=yes
+# FIM DAS VARIÁVEIS DE CONFIGURAÇÃO DO KALI
+
+if [ "$color_prompt" = yes ]; then
+    # Substituir o indicador padrão do virtualenv no prompt.
+    VIRTUAL_ENV_DISABLE_PROMPT=1
+
+    prompt_color='\[\033[;32m\]'
+    info_color='\[\033[1;34m\]'
+    prompt_symbol='💀'
+    if [ "$EUID" -eq 0 ]; then # Alterar as cores do prompt para o usuário root
+        prompt_color='\[\033[;94m\]'
+        info_color='\[\033[1;31m\]'
+        prompt_symbol='💀'
+    fi
+    case "$PROMPT_ALTERNATIVE" in
+        twoline)
+            PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+        oneline)
+            PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}'$info_color'\u@\h\[\033[00m\]:'$prompt_color'\[\033[01m\]\w\[\033[00m\]\$ ';;
+        backtrack)
+            PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+    esac
+    unset prompt_color
+    unset info_color
+    unset prompt_symbol
+else
+        # Substituir o indicador padrão do virtualenv no prompt.
+    VIRTUAL_ENV_DISABLE_PROMPT=1
+
+    prompt_color='\[\033[;32m\]'
+    info_color='\[\033[1;34m\]'
+    prompt_symbol='💀'
+    if [ "$EUID" -eq 0 ]; then # Alterar as cores do prompt para o usuário root
+        prompt_color='\[\033[;94m\]'
+        info_color='\[\033[1;31m\]'
+        prompt_symbol='💀'
+    fi
+    case "$PROMPT_ALTERNATIVE" in
+        twoline)
+            PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+        oneline)
+            PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}'$info_color'\u@\h\[\033[00m\]:'$prompt_color'\[\033[01m\]\w\[\033[00m\]\$ ';;
+        backtrack)
+            PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+    esac
+    unset prompt_color
+    unset info_color
+    unset prompt_symbol
+fi
+unset color_prompt force_color_prompt
+
+# Se este for um terminal xterm, defina o título para user@host:dir.
+case "$TERM" in
+xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+[ "$NEWLINE_BEFORE_PROMPT" = yes ] && PROMPT_COMMAND="PROMPT_COMMAND=echo"
+
+# Habilitar suporte a cores no ls, less e man, e também adicionar aliases úteis.
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    export LS_COLORS="$LS_COLORS:ow=30;44:" # Corrige a cor do ls para pastas com permissões 777
+
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias diff='diff --color=auto'
+    alias ip='ip --color=auto'
+
+    export LESS_TERMCAP_mb=$'\E[1;31m'     # começa piscando
+    export LESS_TERMCAP_md=$'\E[1;36m'     # começa negrito
+    export LESS_TERMCAP_me=$'\E[0m'        # restaura negrito/piscando
+    export LESS_TERMCAP_so=$'\E[01;33m'    # começa vídeo invertido
+    export LESS_TERMCAP_se=$'\E[0m'        # restaura vídeo invertido
+    export LESS_TERMCAP_us=$'\E[1;32m'     # começa sublinhado
+    export LESS_TERMCAP_ue=$'\E[0m'        # restaura sublinhado
+fi
+
+# GCC com mensagens e erros coloridos.
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Alguns aliases para o ls.
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Definições de aliases.
+# Você pode querer colocar todas as suas adições em um arquivo separado, como ~/.bash_aliases, em vez de adicioná-las aqui diretamente.
+# Veja /usr/share/doc/bash-doc/examples no pacote bash-doc.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Habilitar recursos de conclusão programável (não é necessário habilitar novamente se já estiver habilitado em /etc/bash.bashrc e /etc/profile sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+"""
+
+
+run_command("apt install xfce4-terminal")
+run_command(f"echo {config} > ~/.bashrc")
+run_command("sudo cp ~/.bashrc /root/.bashrc && sudo chown root:root /root/.bashrc")
+
+
+
+
+
+
+
+
 print("-----------------------------------------------------------------------------")
 print("Concluído .....")
 print("-----------------------------------------------------------------------------")
