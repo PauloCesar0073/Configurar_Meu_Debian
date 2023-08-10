@@ -210,9 +210,26 @@ def config_bash():
 
 
 
+
     run_command("apt install xfce4-terminal")
-    run_command(f"echo {config} > ~/.bashrc")
-    run_command("sudo cp ~/.bashrc /root/.bashrc && sudo chown root:root /root/.bashrc")
+    # Removendo outros terminais (substitua 'gnome-terminal' e 'konsole' pelos nomes dos terminais que deseja remover)
+    run_command("sudo apt remove gnome-terminal konsole")
+    
+    # Obtendo o nome de usuário atual
+    import os
+    username = os.getlogin()
+
+    # Definindo os caminhos do arquivo .bashrc
+    user_bashrc_path = f'/home/{username}/.bashrc'
+    root_bashrc_path = '/root/.bashrc'
+
+    # Escrevendo o conteúdo no arquivo .bashrc do usuário
+    with open(user_bashrc_path, 'w') as bashrc_file:
+        bashrc_file.write(config)
+
+    # Copiando o arquivo do usuário para o diretório root e ajustando as permissões
+    run_command(f"sudo cp {user_bashrc_path} {root_bashrc_path} && sudo chown root:root {root_bashrc_path}")
+
 
 def install_githubdesktop():
       
