@@ -16,7 +16,7 @@ def install_telegram():
     run_command("tar -xJf Telegram_4.8.10.tar.xz")
     run_command("sudo apt update && sudo apt upgrade")
     run_command("cd Telegram && sudo mv Telegram /usr/bin")
-    run_command(" rm -f Telegram_4.8.10.tar.xz && rm -f Telegram" )
+    run_command(" rm -f Telegram_4.8.10.tar.xz && rm -r Telegram" )
 
 
 def install_vscode():
