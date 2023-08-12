@@ -9,7 +9,7 @@
 execute:
 
 ```
-wget -O config.py https://github.com/PauloCesar0073/Configurar_Meu_Debian/blob/main/ConfigurarAmbienteDebian.py && sudo python3 config.py
+wget -O config.py https://raw.githubusercontent.com/PauloCesar0073/Configurar_Meu_Debian/main/ConfigurarAmbienteDebian.py && sudo python3 config.py
 ```
 
 
