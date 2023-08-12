@@ -256,14 +256,13 @@ def install_virtualbox():
 
 
 
-    run_command("wget -O virtualbox_7.0.10.run https://download.virtualbox.org/virtualbox/7.0.10/VirtualBox-7.0.10-158379-Linux_amd64.run")
-
-    #run_command("sudo chmod +x virtualbox_7.0.10.run")
-    runn_command("sudo ./virtualbox_7.0.10.run")
-    run_command("rm -f virtualbox_7.0.10.run")
-
+    run_command("wget -O virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.10/virtualbox-7.0_7.0.10-158379~Debian~bookworm_amd64.deb")
     run_command("sudo apt install gcc make perl linux-headers-amd64 linux-headers-$(uname -r)")
+    run_command("sudo apt install python3-distutils")
+    run_command("sudo chmod +x virtualbox.deb")
+    run_command("sudo apt install ./virtualbox.deb")
     run_command("sudo /sbin/vboxconfig")
+    run_command("rm -f virtualbox.deb")
 
 
 def install_pycharm():
@@ -328,3 +327,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+s
