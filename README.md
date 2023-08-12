@@ -6,4 +6,8 @@
 
 
 ----------------------------------------------------
-execute usando python3 e seja feliz !
+execute:
+
+```
+wget -O config.py  https://github.com/PauloCesar0073/Configurar_Meu_Debian/ConfigurarAmbienteDebian.py && sudo python3 config.pys
+```
