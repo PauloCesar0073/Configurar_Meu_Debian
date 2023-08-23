@@ -105,11 +105,11 @@ def config_bash():
 
             prompt_color='\[\033[;32m\]'
             info_color='\[\033[1;34m\]'
-            prompt_symbol='💀'
+            prompt_symbol='🎩'
             if [ "$EUID" -eq 0 ]; then # Alterar as cores do prompt para o usuário root
                 prompt_color='\[\033[;94m\]'
                 info_color='\[\033[1;31m\]'
-                prompt_symbol='💀'
+                prompt_symbol='🗿'
             fi
             case "$PROMPT_ALTERNATIVE" in
                 twoline)
@@ -128,11 +128,12 @@ def config_bash():
 
             prompt_color='\[\033[;32m\]'
             info_color='\[\033[1;34m\]'
-            prompt_symbol='💀'
+            prompt_symbol='🎩'
             if [ "$EUID" -eq 0 ]; then # Alterar as cores do prompt para o usuário root
-                prompt_color='\[\033[;94m\]'
+                prompt_color='\[\033[;1;94m\]'
+
                 info_color='\[\033[1;31m\]'
-                prompt_symbol='💀'
+                prompt_symbol='🗿'
             fi
             case "$PROMPT_ALTERNATIVE" in
                 twoline)
