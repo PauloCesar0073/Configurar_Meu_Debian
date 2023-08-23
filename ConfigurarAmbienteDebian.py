@@ -209,11 +209,6 @@ def config_bash():
         """
 
 
-
-
-    run_command("apt install xfce4-terminal")
-    # Removendo outros terminais (substitua 'gnome-terminal' e 'konsole' pelos nomes dos terminais que deseja remover)
-    run_command("sudo apt remove gnome-terminal konsole")
     
     # Obtendo o nome de usuário atual
     import os
