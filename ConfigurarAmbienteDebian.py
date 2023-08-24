@@ -88,7 +88,7 @@ def config_bash():
                 # (A falta desse suporte é extremamente rara, e tal caso tenderia a suportar setf em vez de setaf.)
                 color_prompt=yes
             else
-                color_prompt=
+                color_prompt=yes
             fi
         fi
 
@@ -105,6 +105,8 @@ def config_bash():
 
             prompt_color='\[\033[;32m\]'
             info_color='\[\033[1;34m\]'
+            command_color='\[\033[1;34m\]'
+
             prompt_symbol='🎩'
             if [ "$EUID" -eq 0 ]; then # Alterar as cores do prompt para o usuário root
                 prompt_color='\[\033[;94m\]'
@@ -113,11 +115,13 @@ def config_bash():
             fi
             case "$PROMPT_ALTERNATIVE" in
                 twoline)
-                    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+                    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+
                 oneline)
-                    PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}'$info_color'\u@\h\[\033[00m\]:'$prompt_color'\[\033[01m\]\w\[\033[00m\]\$ ';;
+                    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
                 backtrack)
-                    PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+                  PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+
             esac
             unset prompt_color
             unset info_color
@@ -137,11 +141,14 @@ def config_bash():
             fi
             case "$PROMPT_ALTERNATIVE" in
                 twoline)
-                    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+                  PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+
                 oneline)
-                    PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}'$info_color'\u@\h\[\033[00m\]:'$prompt_color'\[\033[01m\]\w\[\033[00m\]\$ ';;
+                   PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+
                 backtrack)
-                    PS1='${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+                   PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-[\[\033[0;1m\]'$command_color'\w'$prompt_color']\n'$prompt_color'└──'$info_color'\$\[\033[0m\] ';;
+
             esac
             unset prompt_color
             unset info_color
