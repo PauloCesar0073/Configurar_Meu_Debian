@@ -1,8 +1,8 @@
 # Configurar_Meu_Debian
-- intalar virtualbox,
-- intalar github-desktop,
-- intalar vscode,
-- intalar xfce4-terminal e deixar Estilo kali linux
+- instalar virtualbox,
+- instalar github-desktop,
+- instalar vscode,
+- instalar xfce4-terminal e deixar Estilo kali linux
 
 
 ----------------------------------------------------
