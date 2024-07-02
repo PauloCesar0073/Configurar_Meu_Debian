@@ -308,19 +308,26 @@ def main():
         op = input("\t\t\t\t\t->>> ")
         
         if op == "0":
+            run_command("sudo apt update && sudo apt upgrade && clear")
             break
         elif op == "1":
             install_telegram()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         elif op == "2":
             install_pycharm()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         elif op == "3":
             install_vscode()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         elif op == "4":
             config_bash()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         elif op == "5":
             install_virtualbox()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         elif op == "6":
             install_githubdesktop()
+            run_command("sudo apt update && sudo apt upgrade && clear")
         else:
             continue
         
@@ -330,4 +337,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-s
+
